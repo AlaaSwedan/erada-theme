@@ -1,0 +1,56 @@
+<%page expression_filter="h"/>
+<%namespace name='static' file='static_content.html'/>
+<%! from django.utils.translation import ugettext as _ %>
+
+
+      <!-- start Top Offer -->
+      <section class="section bg-light wow fadeIn new-section-pad main-section-pad" data-wow-duration="1s" data-wow-offset="150">
+      
+        <div class="container">
+        
+          <div class="row">
+          
+            <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            
+              <div class="section-title">
+                <h2 class="text-center wow zoomIn font-droid" data-wow-duration=".3s" data-wow-offset="150" data-wow-delay=".2s">${_("Latest Training Courses")}</h2>
+                <!-- <p class=" wow fadeIn font-droid" data-wow-duration=".4s" data-wow-offset="150" data-wow-delay=".4s">${_("Learning for Life")} </p> -->
+              </div>
+            </div>
+          
+          </div>
+            <span></span>
+            <div class="row">
+
+          % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+            
+                ## limiting the course number by using HOMEPAGE_COURSE_MAX as the maximum number of courses
+                
+                %for course in courses[:1]:
+                
+                    <%include file="course.html" args="course=course" />
+                
+              %endfor
+              
+          ## in case there are courses that are not shown on the homepage, a 'View all Courses' link should appear
+            % if settings.HOMEPAGE_COURSE_MAX and len(courses) > settings.HOMEPAGE_COURSE_MAX:
+            <div class="courses-more">
+              <a class="courses-more-cta" href="${marketing_link('COURSES')}"> ${_("View all Courses")} </a>
+            </div>
+          % endif
+          % endif
+
+
+            </div>
+ 
+  
+
+
+           
+
+        </div>
+        
+      </section>
+      <!-- end Top Offer -->
+      
+                
